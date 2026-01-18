@@ -1,0 +1,50 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "تسجيل الخروج";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+            <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h2 class="fw-bold mb-0">
+                    <i class="bi bi-box-arrow-right ms-2"></i> تسجيل الخروج
+                </h2>
+            </div>
+
+            <div class="card-body p-5 text-center">
+                @{
+                    if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <div class="mb-4">
+                            <i class="bi bi-question-circle text-warning" style="font-size: 4rem;"></i>
+                        </div>
+                        <h4 class="mb-3">هل أنت متأكد أنك تريد الخروج؟</h4>
+                        <p class="text-muted mb-4">لن تتمكن من الوصول لمهامك حتى تسجل الدخول مرة أخرى.</p>
+
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                            <button type="submit" class="btn btn-danger btn-lg rounded-pill px-5 shadow-sm fw-bold">
+                                تأكيد الخروج
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="mb-4">
+                            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                        </div>
+                        <h4 class="mb-3 text-success">تم تسجيل خروجك بنجاح!</h4>
+                        <p class="text-muted mb-4">نتمنى أن نراك قريباً.</p>
+
+                        <a asp-page="/Account/Login" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm fw-bold"
+                           style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                            تسجيل الدخول مرة أخرى
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
